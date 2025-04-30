@@ -1,41 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Simple Interest Calculator</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Interest Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d4f0fd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .calculator {
+            background-color: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 300px;
+            width: 100%;
+        }
+        .calculator h2 {
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Simple Interest<br>Calculator</h1>
-    <div class="card">
-      <label for="amount">Rakam</label>
-      <input type="number" id="amount" placeholder="₹ 1000">
+    <div class="calculator">
+        <h2>Simple Interest Calculator</h2>
+        <div class="input-group">
+            <label for="rakam">Rakam</label>
+            <input type="number" id="rakam" value="1000">
+        </div>
+        <div class="input-group">
+            <label for="vayaj">Vayaj</label>
+            <select id="vayaj">
+                <option value="5">5 %</option>
+                <option value="10">10 %</option>
+                <option value="15">15 %</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="mahine">Mahine</label>
+            <select id="mahine">
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+        <hr>
+        <div class="result">
+            Kul Vyaj: <span id="kulVyaj">0</span> ₹<br>
+            Kul bhugtan: <span id="kulBhugtan">0</span> ₹
+        </div>
+    </div><script>
+    const rakamInput = document.getElementById('rakam');
+    const vayajSelect = document.getElementById('vayaj');
+    const mahineSelect = document.getElementById('mahine');
+    const kulVyajEl = document.getElementById('kulVyaj');
+    const kulBhugtanEl = document.getElementById('kulBhugtan');
 
-      <label for="rate">Vayaj</label>
-      <select id="rate">
-        <option value="5">5 %</option>
-        <option value="10">10 %</option>
-        <option value="15">15 %</option>
-      </select>
+    function calculateInterest() {
+        const rakam = parseFloat(rakamInput.value);
+        const vayaj = parseFloat(vayajSelect.value);
+        const mahine = parseInt(mahineSelect.value);
+        const ratePerMonth = vayaj / 100 / 12;
+        const interest = rakam * ratePerMonth * mahine;
+        const total = rakam + interest;
 
-      <label for="months">Mahine</label>
-      <select id="months">
-        <option value="1">1</option>
-        <option value="3">3</option>
-        <option value="6">6</option>
-        <option value="12">12</option>
-      </select>
+        kulVyajEl.textContent = interest.toFixed(2);
+        kulBhugtanEl.textContent = total.toFixed(2);
+    }
 
-      <hr>
+    rakamInput.addEventListener('input', calculateInterest);
+    vayajSelect.addEventListener('change', calculateInterest);
+    mahineSelect.addEventListener('change', calculateInterest);
 
-      <p class="output-title">Kul Vyaj</p>
-      <div class="output" id="interest">₹ 0</div>
+    calculateInterest(); // Initial calculation
+</script>
 
-      <p class="output-title">Kul bhugtan</p>
-      <div class="output" id="total">₹ 0</div>
-    </div>
-  </div>
-  <script src="script.js"></script>
 </body>
 </html>
