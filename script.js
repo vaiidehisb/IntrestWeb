@@ -1,4 +1,4 @@
-const amountInput = document.getElementById('amount');
+/*const amountInput = document.getElementById('amount');
 const rateSelect = document.getElementById('rate');
 const monthsSelect = document.getElementById('months');
 const interestDisplay = document.getElementById('interest');
@@ -24,3 +24,4 @@ monthsSelect.addEventListener('change', calculateInterest);
 
 // Initial calculation
 calculateInterest();
+*/
