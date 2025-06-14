@@ -96,11 +96,16 @@
     <div class="result">
       कुल वयाज : <span id="kulVyaj">0</span> ₹<br />
       कुल भूगदान : <span id="kulBhugtan">0</span> ₹<br />
+      </div>
       <div class="words">
         रकम शब्दों में : <span id="hindiWords">शून्य</span>
       </div>
-     
+
+      <div class="words" style="text-align:center; margin-top:5px;">
+      दर्ज की गई रकम : <span id="enteredRakamWords">शून्य</span>
     </div>
+     
+    
     <img class="sudipicc" src="Sudi1.png">
   </div>
 
@@ -111,6 +116,7 @@
     const kulVyajEl = document.getElementById('kulVyaj');
     const kulBhugtanEl = document.getElementById('kulBhugtan');
     const hindiWordsEl = document.getElementById('hindiWords');
+    const enteredRakamWordsEl = document.getElementById('enteredRakamWords');
 
     function numberToHindiWords(num) {
       const ones = ["", "एक", "दो", "तीन", "चार", "पांच", "छह", "सात", "आठ", "नौ"];
@@ -163,9 +169,10 @@
       const interest = rakam * ratePerMonth * mahine;
       const total = rakam + interest;
 
-      kulVyajEl.textContent = interest.toFixed(2);
-      kulBhugtanEl.textContent = total.toFixed(2);
+      kulVyajEl.textContent = interest.toFixed(2).toLocaleString('en-IN');
+      kulBhugtanEl.textContent = total.toFixed(2).toLocaleString('en-IN');
       hindiWordsEl.textContent = numberToHindiWords(Math.round(total));
+      enteredRakamWordsEl.textContent = numberToHindiWords(Math.round(rakam) || 0);
     }
 
     rakamInput.addEventListener('input', calculateInterest);
