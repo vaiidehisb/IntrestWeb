@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Simple Interest Calculator</title>
-   <link rel="icon" type="image/png" href="ma.png">
+  <link rel="icon" type="image/png" href="IntrestWeb-main/ma.png">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -73,11 +73,14 @@
 </head>
 <body>
   <div class="calculator">
-    <img class="picture" src="ma.png">
+    <img class="picture" src="IntrestWeb-main/ma.png">
     <h2>Simple Interest Calculator</h2>
     <div class="input-group">
       <label for="rakam">रकम </label>
       <input type="number" id="rakam" />
+    </div>
+    <div class="words" style="font-size: 12px; color: #666; margin-top: 5px;">
+      <span id="rakamWords">शून्य</span>
     </div>
     <div class="input-group">
       <label for="vayaj">वयाज </label>
@@ -92,21 +95,19 @@
       <label for="mahine">महीने </label>
       <input type="number" id="mahine" />
     </div>
+    <div class="words" style="font-size: 12px; color: #666; margin-top: 5px;">
+      <span id="mahineWords">शून्य</span>
+    </div>
     <hr />
     <div class="result">
       कुल वयाज : <span id="kulVyaj">0</span> ₹<br />
       कुल भूगदान : <span id="kulBhugtan">0</span> ₹<br />
-      </div>
       <div class="words">
         रकम शब्दों में : <span id="hindiWords">शून्य</span>
       </div>
-
-      <div class="words" style="text-align:center; margin-top:5px;">
-      दर्ज की गई रकम : <span id="enteredRakamWords">शून्य</span>
-    </div>
      
-    
-    <img class="sudipicc" src="Sudi1.png">
+    </div>
+    <img class="sudipicc" src="IntrestWeb-main/Sudi1.png">
   </div>
 
   <script>
@@ -116,7 +117,6 @@
     const kulVyajEl = document.getElementById('kulVyaj');
     const kulBhugtanEl = document.getElementById('kulBhugtan');
     const hindiWordsEl = document.getElementById('hindiWords');
-    const enteredRakamWordsEl = document.getElementById('enteredRakamWords');
 
     function numberToHindiWords(num) {
       const ones = ["", "एक", "दो", "तीन", "चार", "पांच", "छह", "सात", "आठ", "नौ"];
@@ -158,21 +158,41 @@
       return result.trim();
     }
 
+    function formatNumberWithCommas(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     function calculateInterest() {
       const rakam = parseFloat(rakamInput.value);
       const vayaj = parseFloat(vayajSelect.value);
       const mahine = parseInt(mahineSelect.value);
 
+      // Update word displays for inputs
+      const rakamWordsEl = document.getElementById('rakamWords');
+      const mahineWordsEl = document.getElementById('mahineWords');
+      
+      if (!isNaN(rakam) && rakam > 0) {
+        rakamWordsEl.textContent = numberToHindiWords(rakam);
+      } else {
+        rakamWordsEl.textContent = "शून्य";
+      }
+      
+      if (!isNaN(mahine) && mahine > 0) {
+        mahineWordsEl.textContent = numberToHindiWords(mahine);
+      } else {
+        mahineWordsEl.textContent = "शून्य";
+      }
+
       if (isNaN(rakam) || isNaN(vayaj) || isNaN(mahine)) return;
 
-      const ratePerMonth = vayaj / 100 ;
+      const ratePerMonth = vayaj / 100 / 12;
       const interest = rakam * ratePerMonth * mahine;
       const total = rakam + interest;
 
-      kulVyajEl.textContent = interest.toFixed(2).toLocaleString('en-IN');
-      kulBhugtanEl.textContent = total.toFixed(2).toLocaleString('en-IN');
+      // Format numbers with commas
+      kulVyajEl.textContent = formatNumberWithCommas(interest.toFixed(2));
+      kulBhugtanEl.textContent = formatNumberWithCommas(total.toFixed(2));
       hindiWordsEl.textContent = numberToHindiWords(Math.round(total));
-      enteredRakamWordsEl.textContent = numberToHindiWords(Math.round(rakam) || 0);
     }
 
     rakamInput.addEventListener('input', calculateInterest);
