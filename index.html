@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Simple Interest Calculator</title>
-  <link rel="icon" type="image/png" href="IntrestWeb-main/ma.png">
+  <link rel="icon" type="image/png" href="ma.png">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -73,7 +73,7 @@
 </head>
 <body>
   <div class="calculator">
-    <img class="picture" src="IntrestWeb-main/ma.png">
+    <img class="picture" src="ma.png">
     <h2>Simple Interest Calculator</h2>
     <div class="input-group">
       <label for="rakam">रकम </label>
@@ -107,7 +107,7 @@
       </div>
      
     </div>
-    <img class="sudipicc" src="IntrestWeb-main/Sudi1.png">
+    <img class="sudipicc" src="Sudi1.png">
   </div>
 
   <script>
@@ -185,7 +185,7 @@
 
       if (isNaN(rakam) || isNaN(vayaj) || isNaN(mahine)) return;
 
-      const ratePerMonth = vayaj / 100 / 12;
+      const ratePerMonth = vayaj / 100;
       const interest = rakam * ratePerMonth * mahine;
       const total = rakam + interest;
 
